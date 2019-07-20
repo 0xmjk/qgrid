@@ -104,6 +104,13 @@ class NPM(Command):
             check_call(['npm', 'install'], cwd=node_root, stdout=sys.stdout, stderr=sys.stderr)
             os.utime(self.node_modules, None)
 
+        check_call(
+            ["npm", "run-script", "prepublish"],
+            cwd=node_root,
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
+
         for t in self.targets:
             if not exists(t):
                 msg = 'Missing file: %s' % t
